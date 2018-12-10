@@ -37,84 +37,43 @@ public class LeetCode {
 	
 	ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         
-        ListNode retHead = new ListNode(0);
+        ListNode retHead = null;
+        ListNode temp = null;
         int carryOne = 0;
-        boolean isFirst = true;
-        ListNode temp = retHead;
-        int sumVal;
+        int val1 = 0;
+        int val2 = 0;
+        int sumVal = 0;
         
         //add values
         while(l1 != null || l2 != null || carryOne == 1) {
-        	if(isFirst) {
-        		if(l1 == null && l2 != null) {
-                	temp = new ListNode(l2.val);
-                	l2 = l2.next;
-                }else if(l1 != null && l2 == null) {
-                	temp = new ListNode(l1.val);
-                	l1 = l1.next;
-                	carryOne = 0;
-                }else {
-                	sumVal = l1.val + l2.val + carryOne;
-                	if(sumVal > 9) {
-                		carryOne = 1;
-                		sumVal = sumVal % 10;
-                	}else {
-                		carryOne = 0;
-                	}
-                	temp = new ListNode(sumVal);
-                	System.out.println("l1: " + l1.val + " l2: " + l2.val);
-                	l1 = l1.next;
-                	l2 = l2.next;
-                	
-                }
-        		
-        		retHead = temp;
-        		isFirst = false;
+        	if(l1 != null) {
+        		val1 = l1.val;
+        		l1 = l1.next;
         	}else {
-        		if(l1 == null && l2 != null) {
-        			sumVal = l2.val + carryOne;
-        			if(sumVal > 9) {
-                		carryOne = 1;
-                		sumVal = sumVal % 10;
-                	}else {
-                		carryOne = 0;
-                	}
-        			
-                	temp.next = new ListNode(sumVal);
-                	l2 = l2.next;
-                }else if(l1 != null && l2 == null) {
-                	sumVal = l1.val + carryOne;
-                	if(sumVal > 9) {
-                		carryOne = 1;
-                		sumVal = sumVal % 10;
-                	}else {
-                		carryOne = 0;
-                	}
-                	temp.next = new ListNode(sumVal);
-                	l1 = l1.next;
-                }else if(l1 != null && l2 != null){
-                	sumVal = l1.val + l2.val + carryOne;
-                	if(sumVal > 9) {
-                		carryOne = 1;
-                		sumVal = sumVal % 10;
-                	}else {
-                		carryOne = 0;
-                	}
-                	temp.next = new ListNode(sumVal);
-                	System.out.println("l1: " + l1.val + " l2: " + l2.val);
-                	l1 = l1.next;
-                	l2 = l2.next;
-                	
-                }else {
-                	if(carryOne == 1) {
-                    	temp.next = new ListNode(1);
-                    }
-                	carryOne = 0;
-                }
-        		temp = temp.next;
-        		
+        		val1 = 0;
+        	}
+        	if(l2 != null) {
+        		val2 = l2.val;
+        		l2 = l2.next;
+        	}else {
+        		val2 = 0;
         	}
         	
+        	sumVal = val1 + val2 + carryOne;
+        	if(sumVal >= 10) {
+        		carryOne = 1;
+        		sumVal = sumVal % 10;
+        	}else {
+        		carryOne = 0;
+        	}
+        	
+        	if(retHead == null) {
+        		retHead = new ListNode(sumVal);
+        		temp = retHead;
+        	}else {
+        		temp.next = new ListNode(sumVal);
+        		temp = temp.next;
+        	}
         	
         }
         return retHead;
