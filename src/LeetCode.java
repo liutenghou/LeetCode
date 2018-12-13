@@ -35,7 +35,30 @@ public class LeetCode {
 		//4173
 		int[] houses = {114,117,207,117,235,82,90,67,143,146,53,108,200,91,80,223,58,170,110,236,81,90,222,160,165,195,187,199,114,235,197,187,69,129,64,214,228,78,188,67,205,94,205,169,241,202,144,240};
 		//house robber
-		System.out.println(lc.rob(houses));
+		System.out.println(lc.robIteratively(houses));
+	}
+	
+	public int robIteratively(int[] houses) {
+		if(houses.length == 0) {
+			return 0;
+		}
+		
+		int[] memo = new int[houses.length+1];
+		
+		memo[0] = 0;
+		memo[1] = houses[0];
+		
+		for(int i=1; i<houses.length; i++) {
+			int val = houses[i];
+			
+			if(memo[i-1]+val < memo[i]) {
+				memo[i+1] = memo[i];
+			}else {
+				memo[i+1] = memo[i-1]+val;
+			}
+		}
+		
+		return memo[houses.length];
 	}
 	
 	int[] memo;
