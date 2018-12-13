@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.Collections;
 
 public class LeetCode {
 
@@ -6,25 +8,61 @@ public class LeetCode {
 		
 //		[2,4,3]
 //		[5,6,4]
-		ListNode l1 = lc.new ListNode(2);
-		ListNode l1_1 = lc.new ListNode(4);
-		ListNode l1_2 = lc.new ListNode(3);
+//		ListNode l1 = lc.new ListNode(2);
+//		ListNode l1_1 = lc.new ListNode(4);
+//		ListNode l1_2 = lc.new ListNode(3);
+//		
+//		l1.next = l1_1;
+//		l1_1.next = l1_2;
+//		
+//		ListNode l2 = lc.new ListNode(5);
+//		ListNode l2_1 = lc.new ListNode(6);
+//		
+//		l2.next = l2_1;
+//		
+//		ListNode ret = lc.addTwoNumbers(l1, l2);
+//		ListNode temp = ret;
+//		while(temp != null) {
+//			System.out.print(String.valueOf(temp.val + ","));
+//			temp = temp.next;
+//		}
 		
-		l1.next = l1_1;
-		l1_1.next = l1_2;
+		//coinChange
+		int[] coins = {1, 2, 5};
+		int amount = 11;
 		
-		ListNode l2 = lc.new ListNode(5);
-		ListNode l2_1 = lc.new ListNode(6);
-		
-		l2.next = l2_1;
-		
-		ListNode ret = lc.addTwoNumbers(l1, l2);
-		ListNode temp = ret;
-		while(temp != null) {
-			System.out.print(String.valueOf(temp.val + ","));
-			temp = temp.next;
+//		System.out.println(lc.coinChange(coins, amount));
+		//4173
+		int[] houses = {114,117,207,117,235,82,90,67,143,146,53,108,200,91,80,223,58,170,110,236,81,90,222,160,165,195,187,199,114,235,197,187,69,129,64,214,228,78,188,67,205,94,205,169,241,202,144,240};
+		//house robber
+		System.out.println(lc.rob(houses));
+	}
+	
+	int[] memo;
+	public int rob(int[] nums) {
+		memo = new int[nums.length];
+		Arrays.fill(memo, -1);
+		return rob(nums, nums.length-1);
+	}
+	
+	public int rob(int[] nums, int topI) {
+		if(topI < 0) {
+			return 0;
+		}	
+		int topN = nums[topI];
+		if(memo[topI] > 0) {
+			return memo[topI];
 		}
 		
+		int max;
+		if(topN < 1) {
+			max = rob(nums, topI-1);
+		}else {
+			max = Math.max(topN + rob(nums, topI-2), rob(nums, topI-1));
+		}
+		memo[topI] = max;
+		
+		return max;
 	}
 	
 	private class ListNode {
