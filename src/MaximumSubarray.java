@@ -28,15 +28,17 @@ public class MaximumSubarray {
         return largestSum;
     }  
 	
+	//DP O(n) solution
 	public static int maxSubArray2(int[] nums) {
 		int max = nums[0];
 		int maxPrevious = nums[0];
 		
 		for(int i=1; i<nums.length; i++) {
-			if(nums[i] > maxPrevious) {
-				maxPrevious = nums[i];
+			int currentSum = maxPrevious + nums[i];
+			if(currentSum > nums[i]) {
+				maxPrevious = currentSum;
 			}else {
-				maxPrevious = maxPrevious + nums[i];
+				maxPrevious = nums[i];
 			}
 			
 			if(maxPrevious > max) max = maxPrevious;
