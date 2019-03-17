@@ -9,6 +9,7 @@ public class SingleNumber {
 		System.out.println(singleNumber(t1));
 	}
 
+	//hashset solution
 	public static int singleNumber(int[] nums) {
 		HashSet<Integer> hs = new HashSet<>();
 
