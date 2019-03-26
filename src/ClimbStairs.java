@@ -1,3 +1,4 @@
+import java.util.HashMap;
 
 public class ClimbStairs {
 
@@ -31,6 +32,23 @@ public class ClimbStairs {
         
         memo[i] = climbStairsMemo(n, i+1, memo) + climbStairsMemo(n, i+2, memo);
         return memo[i];
+    }
+    
+    //version 2
+    public int climbStairs2(int n) {
+        return climbHelper2(0, n);
+    }
+    
+    HashMap<Integer, Integer> hm = new HashMap<>();
+    public int climbHelper2(int i, int n){
+        if(i>n) return 0;
+        if(i==n) return 1;
+        if(hm.containsKey(i)) return hm.get(i);
+        
+        int result = climbHelper2(i+1, n) + climbHelper2(i+2, n);
+        hm.put(i, result);
+        
+        return result;
     }
 
 }
